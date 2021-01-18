@@ -5,6 +5,12 @@
 - Login se ingresa con un usuario y se muestra el menú nota, mostrar notas, borrar notas.
 
 """
+# Importar paquetes
+
+from usuarios import acciones
+
+#creación del objeto acción.
+accion = acciones.Acciones()
 
 
 # Menú inicial
@@ -19,20 +25,16 @@ Menú inicial:
 
 
 
-accion = -1
-while(accion != 0 and accion != 1):
-    accion = int(input("\nSeleccione una opción: "))
+opcion = -1
+while(opcion != 0 and opcion != 1):
+    opcion = int(input("\nSeleccione una opción: "))
 
 
-if(accion == 0):
-    print("\nRegistro de  usuarios")
 
-    nombre = input("\nIngrese su nombre: ")
-    apellido = input("Ingrese su apellido: ")
-    email = input("Ingrese su email: ")
-    password = input("Ingresee una contraseña: ")
-elif accion == 1:
-    print("\nIdentificarsee en el sistema")
+if(opcion == 0):
+    accion.registro()
+    
+elif opcion == 1:
+    accion.login()
 
-    email = input("\nIngrese su email: ")
-    password = input("Ingresee una contraseña: ")
+    
