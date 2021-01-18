@@ -1,5 +1,6 @@
 from baseDatos import conexion
 import datetime
+import hashlib #módulo para cifrado
 
 class Usuario:
     # Constructor
@@ -44,16 +45,28 @@ class Usuario:
     def registrar(self):
 
         try:     
-            conn = conexion.Conexion("192.168.122.146","root","rootroot","master_pytho",3306)
+            conn = conexion.Conexion("192.168.122.146","root","rootroot","master_python",3306)
             conn.conectar()      
 
             # Fecha actual
             fecha = datetime.datetime.now()
             fechaFormateada = fecha.strftime("%Y-%m-%d")
 
+            # Cifrado de la contraseña
+
+            #Elección de algoritmo de cifrado
+            cifrado = hashlib.sha256() 
+
+            # Cifrado de la contraseña
+            cifrado.update(self.__password.encode('utf8')) # Este método recibe datos en bytes. Se codifica con el método encode
+
+
+
             # Se envían los datos para guardar
+
+            #Se pasa el valor hexadecimal del del cifrado del password
             datos = [
-                (self.__nombre, self.__apellido,self.__email,self.__password,fechaFormateada)
+                (self.__nombre, self.__apellido,self.__email,cifrado.hexdigest(),fechaFormateada)
             ]
             exito = conn.guardarDatos("INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)",datos)
             conn.cerrarConexion()
