@@ -9,8 +9,11 @@
 
 from usuarios import acciones
 
+
 #creación del objeto acción.
 accion = acciones.Acciones()
+
+
 
 
 # Menú inicial
@@ -36,5 +39,8 @@ if(opcion == 0):
     
 elif opcion == 1:
     accion.login()
+
+
+
 
     

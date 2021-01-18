@@ -1,47 +1,69 @@
-class Usuario:
+from baseDatos import conexion
+import datetime
 
+class Usuario:
     # Constructor
     
     def __init__(self,nombre, apellido, email,password):
-        self.nombre = nombre
-        self.apellido = apellido
-        self.email = email
-        self.password = password
+        self.__nombre = nombre
+        self.__apellido = apellido
+        self.__email = email
+        self.__password = password
     
 
     # Setters
 
     def setNombre(self,nombre):
-        self.nombre = nombre
+        self.__nombre = nombre
     
     def setApellido(self,apellido):
-        self.apellido = apellido
+        self.__apellido = apellido
 
     def setEmail(self,email):
-        self.email = email
+        self.__email = email
 
     def setPassword(self,password):
-        self.password = password
+        self.__password = password
 
      # Getters
 
     def getNombre(self):
-        return self.nombre
+        return self.__nombre
     
     def getApellido(self):
-        return self.apellido
+        return self.__apellido
 
     def getEmail(self):
-        return self.email 
+        return self.__email 
 
     def getPassword(self):
-        return self.password
+        return self.__password
 
     # Métodos
 
-    def registrar(self): 
-       return self.nombre
+    def registrar(self):
+        conn = conexion.Conexion("192.168.122.146","root","rootroot","master_python",3306)
+        conn.conectar()
+
+        # Fecha actual
+        fecha = datetime.datetime.now()
+        fechaFormateada = fecha.strftime("%Y-%m-%d")
+
+        # Se envían los datos para guardar
+        datos = [
+            (self.__nombre, self.__apellido,self.__email,self.__password,fechaFormateada)
+        ]
+        exito = conn.guardarDatos("INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)",datos)
+        conn.cerrarConexion()
+
+        # 0 si no se guardó y <> 0 si se guardó con éxito
+        return exito
 
     def identificar(self):
-         return self.nombre
+         return self.__nombre
+
     
+
+    
+
+
