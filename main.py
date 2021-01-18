@@ -25,8 +25,14 @@ while(accion != 0 and accion != 1):
 
 
 if(accion == 0):
-    print("\nRegistro en el sistema !!!")
+    print("\nRegistro de  usuarios")
+
+    nombre = input("\nIngrese su nombre: ")
+    apellido = input("Ingrese su apellido: ")
+    email = input("Ingrese su email: ")
+    password = input("Ingresee una contraseña: ")
 elif accion == 1:
-    print("\nIdentificarsee en el sistema !!!")
+    print("\nIdentificarsee en el sistema")
 
-
+    email = input("\nIngrese su email: ")
+    password = input("Ingresee una contraseña: ")
