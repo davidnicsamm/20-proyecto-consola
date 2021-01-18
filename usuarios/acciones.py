@@ -13,7 +13,11 @@ class Acciones:
 
         user = usuario.Usuario(nombre,apellido,email,password)
         exito = user.registrar()
-        print(f"Exito{exito}")
+
+        if exito >=1:
+            print("\nRegistro exitoso !!!")
+        else:
+            print("\nEl registro no se pudo realizar. Verifique los datos.")
 
 
 

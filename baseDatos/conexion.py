@@ -18,6 +18,7 @@ class Conexion:
         )
        
        
+       
     # Conectar
     def conectar(self):
         self.__cursor = self.__database.cursor(buffered=True)  
@@ -34,11 +35,16 @@ class Conexion:
 
 
     def guardarDatos(self,consulta,datos):
-        # self.__cursor.execute(consulta)
-        #self.__cursor.execute("insert into usuarios(nombre,apellido,email,password,fecha) values('david','samm','sfsf@sdfsf.com',1,'2021-01-01')")
-        self.__cursor.executemany(consulta,datos)
-        self.__database.commit()
-        return self.__cursor.rowcount
+       
+        # Captura fallo en la consulta
+        try:
+            self.__cursor.executemany(consulta,datos)
+            self.__database.commit()
+            result = self.__cursor.rowcount
+        except: 
+            result = 0   
+
+        return result
 
 
     def consultarDatos(self,consulta):

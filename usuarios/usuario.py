@@ -42,19 +42,23 @@ class Usuario:
     # Métodos
 
     def registrar(self):
-        conn = conexion.Conexion("192.168.122.146","root","rootroot","master_python",3306)
-        conn.conectar()
 
-        # Fecha actual
-        fecha = datetime.datetime.now()
-        fechaFormateada = fecha.strftime("%Y-%m-%d")
+        try:     
+            conn = conexion.Conexion("192.168.122.146","root","rootroot","master_pytho",3306)
+            conn.conectar()      
 
-        # Se envían los datos para guardar
-        datos = [
-            (self.__nombre, self.__apellido,self.__email,self.__password,fechaFormateada)
-        ]
-        exito = conn.guardarDatos("INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)",datos)
-        conn.cerrarConexion()
+            # Fecha actual
+            fecha = datetime.datetime.now()
+            fechaFormateada = fecha.strftime("%Y-%m-%d")
+
+            # Se envían los datos para guardar
+            datos = [
+                (self.__nombre, self.__apellido,self.__email,self.__password,fechaFormateada)
+            ]
+            exito = conn.guardarDatos("INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)",datos)
+            conn.cerrarConexion()
+        except:
+            exito = 0
 
         # 0 si no se guardó y <> 0 si se guardó con éxito
         return exito
