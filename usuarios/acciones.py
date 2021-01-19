@@ -32,12 +32,37 @@ class Acciones:
 
         if exito == 1:
             print("\nLogin exitoso")
-            self.__proximasAcciones(self,email)
+            self.__proximasAcciones(email)
         else:
             print("\nFalo en el login, intente más tarde", exito)
 
         
     def __proximasAcciones(self,usuario):
-        return None
+
+        notas = {
+            0: "crearNota",
+            1: "mostrarNotas",
+            2: "eliminarNota",
+            3: "salir"
+
+        }
+
+      
+        print("""
+
+        Menú de usuario:
+        [0] Crear Nota
+        [1] Mostrar notas
+        [2] Eliminar nota
+        [3] Salir
+
+        
+        """)
+
+        opcion = int(input("\nSeleccione una opción: "))
+        func = notas.get(opcion, lambda: "Opción inválida")
+
+        print("Opción: " + func)
+
 
         
