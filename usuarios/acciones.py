@@ -23,6 +23,21 @@ class Acciones:
 
     def login(self):
         print("\nIdentificarsee en el sistema")
-
         email = input("\nIngrese su email: ")
         password = input("Ingresee una contraseña: ")
+
+        user = usuario.Usuario('','',email,password)
+        
+        exito = user.identificar();
+
+        if exito == 1:
+            print("\nLogin exitoso")
+            self.__proximasAcciones(self,email)
+        else:
+            print("\nFalo en el login, intente más tarde", exito)
+
+        
+    def __proximasAcciones(self,usuario):
+        return None
+
+        

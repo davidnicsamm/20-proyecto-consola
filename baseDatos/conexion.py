@@ -8,13 +8,13 @@ class Conexion:
 
     # Constructor
 
-    def __init__(self,host,user,passwd,database, port):
-        self.__database = mysql.connector.connect(
-            host = host,
-            user = user,
-            passwd = passwd,
-            database = database,
-            port = port
+    def __init__(self):
+        self.__database = mysql.connector.connect(          
+            host = "192.168.122.146",
+            user = "root",
+            passwd = "rootroot",
+            database = "master_python",
+            port = 3306
         )
        
        
@@ -47,9 +47,19 @@ class Conexion:
         return result
 
 
-    def consultarDatos(self,consulta):
-        self.__cursor.execute(consulta)
-        return self.__cursor.rowcount
+    def consultarDatos(self,consulta,datos):
+
+        
+        try:
+            self.__cursor.execute(consulta,datos)
+           
+            result = self.__cursor.rowcount
+           
+        except:
+            result = 0
+
+       
+        return result
 
 
     def eliminarDatos(self,consulta): 

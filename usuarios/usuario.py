@@ -45,14 +45,14 @@ class Usuario:
     def registrar(self):
 
         try:     
-            conn = conexion.Conexion("192.168.122.146","root","rootroot","master_python",3306)
+            conn = conexion.Conexion()
             conn.conectar()      
 
             # Fecha actual
             fecha = datetime.datetime.now()
             fechaFormateada = fecha.strftime("%Y-%m-%d")
 
-            # Cifrado de la contraseña
+            # Aplicar cifrado de la contraseña
 
             #Elección de algoritmo de cifrado
             cifrado = hashlib.sha256() 
@@ -68,16 +68,48 @@ class Usuario:
             datos = [
                 (self.__nombre, self.__apellido,self.__email,cifrado.hexdigest(),fechaFormateada)
             ]
-            exito = conn.guardarDatos("INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)",datos)
+
+            # Consulta para insertar datos
+            sql = "INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)"
+            exito = conn.guardarDatos(sql,datos)
             conn.cerrarConexion()
         except:
             exito = 0
+            conn.cerrarConexion()
 
         # 0 si no se guardó y <> 0 si se guardó con éxito
         return exito
 
     def identificar(self):
-         return self.__nombre
+
+        try:     
+            conn = conexion.Conexion()
+            conn.conectar()
+
+            # Consulta para verificar si existe el usuario
+            sql = "SELECT * FROM usuarios WHERE email = %s AND password = %s"
+
+            # Aplicar cifrado de la contraseña
+
+            #Elección de algoritmo de cifrado
+            cifrado = hashlib.sha256() 
+
+            # Cifrado de la contraseña
+            cifrado.update(self.__password.encode('utf8')) # Este método recibe datos en bytes. Se codifica con el método encode
+
+            usuario = (self.__email, cifrado.hexdigest())
+            exito = conn.consultarDatos(sql,usuario)
+            conn.cerrarConexion()
+           
+
+            # Consultar
+
+            
+        except:
+            exito = 0
+            conn.cerrarConexion()
+
+        return exito
 
     
 
