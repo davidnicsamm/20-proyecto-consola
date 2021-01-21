@@ -37,34 +37,50 @@ class Conexion:
     def guardarDatos(self,consulta,datos):
        
         # Captura fallo en la consulta
-        try:
+        try:           
             self.__cursor.executemany(consulta,datos)
             self.__database.commit()
             result = self.__cursor.rowcount
         except: 
-            result = 0   
-
+            result = 0
+          
+            
         return result
 
 
-    def consultarDatos(self,consulta,datos):
-
+    def consultarDato(self,consulta,datos):
         
         try:
-            self.__cursor.execute(consulta,datos)
-           
-            result = self.__cursor.rowcount
-           
+            self.__cursor.execute(consulta,datos)           
+            result = self.__cursor.fetchone()           
         except:
-            result = 0
-
-       
+            result = None       
         return result
+
+    
+    def consultarDatos(self,consulta,datos):
+        print(datos)
+            
+        try:
+
+            if datos is not None:
+                self.__cursor.executemany(consulta,datos) 
+            else:
+                self.__cursor.execute(consulta)
+
+            result = self.__cursor.fetchall()           
+        except Exception as e:
+            print("Fallo consulta",e)
+            result = None       
+        return result
+
 
 
     def eliminarDatos(self,consulta): 
-        self.__cursor.execute(consulta)
-        return self.__cursor.rowcount 
+        resultado = self.__cursor.execute(consulta)
+        #return resultado.fetchone()
+        
+        return self.__cursor.rowcont 
 
 
     

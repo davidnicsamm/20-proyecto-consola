@@ -59,9 +59,6 @@ class Usuario:
 
             # Cifrado de la contraseña
             cifrado.update(self.__password.encode('utf8')) # Este método recibe datos en bytes. Se codifica con el método encode
-
-
-
             # Se envían los datos para guardar
 
             #Se pasa el valor hexadecimal del del cifrado del password
@@ -72,13 +69,16 @@ class Usuario:
             # Consulta para insertar datos
             sql = "INSERT INTO usuarios VALUES(null,%s,%s,%s,%s,%s)"
             exito = conn.guardarDatos(sql,datos)
+
+            result = [exito,self]
+
             conn.cerrarConexion()
         except:
-            exito = 0
+            result = [0,self]
             conn.cerrarConexion()
 
         # 0 si no se guardó y <> 0 si se guardó con éxito
-        return exito
+        return result
 
     def identificar(self):
 
@@ -98,18 +98,14 @@ class Usuario:
             cifrado.update(self.__password.encode('utf8')) # Este método recibe datos en bytes. Se codifica con el método encode
 
             usuario = (self.__email, cifrado.hexdigest())
-            exito = conn.consultarDatos(sql,usuario)
-            conn.cerrarConexion()
+            resultado = conn.consultarDato(sql,usuario)
            
-
-            # Consultar
-
-            
+            conn.cerrarConexion()
         except:
-            exito = 0
+            resultado = None
             conn.cerrarConexion()
 
-        return exito
+        return resultado
 
     
 

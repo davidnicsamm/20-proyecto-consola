@@ -10,7 +10,7 @@
 from usuarios import acciones
 
 
-#creación del objeto acción.
+#creación del objeto acción de un usuario.
 accion = acciones.Acciones()
 
 
