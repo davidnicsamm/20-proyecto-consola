@@ -45,7 +45,7 @@ class Acciones:
         accionesNotas = {
             0: accionNota.crear,
             1: accionNota.mostrar,
-            # 2: accionNota.eliminar(),
+            2: accionNota.borrar,
         }
 
         func = accionesNotas.get(opcion)   
@@ -62,7 +62,7 @@ class Acciones:
         Menú de usuario:
         [0] Crear Nota
         [1] Mostrar notas
-        [2] Eliminar nota
+        [2] Borrar nota
         [3] Salir
         
         """)

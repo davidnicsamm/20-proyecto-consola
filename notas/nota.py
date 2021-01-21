@@ -24,12 +24,9 @@ class Nota:
 
     def listar(self):
 
-        try:
-           
+        try:           
             conn = conexion.Conexion()
             conn.conectar()
-
-            
             sql = f"SELECT * FROM notas WHERE usuario_id = {self.__usuario_id} "
             resultado = conn.consultarDatos(sql,None)
             conn.cerrarConexion()
@@ -39,5 +36,23 @@ class Nota:
             conn.cerrarConexion()
 
         return resultado
+
+    def eliminar(self):
+        try:
+           
+            conn = conexion.Conexion()
+            conn.conectar()
+
+            sql = f"DELETE FROM notas WHERE usuario_id = {self.__usuario_id} AND titulo LIKE \"%{self.__titulo}%\""
+            exito = conn.eliminarDatos(sql)
+            conn.cerrarConexion()
+        except:
+            exito = 0
+            conn.cerrarConexion()
+        
+        return [exito,self]
+
+
+    
         
         

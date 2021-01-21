@@ -77,11 +77,16 @@ class Conexion:
 
 
     def eliminarDatos(self,consulta): 
-        resultado = self.__cursor.execute(consulta)
+        print(f"SQL: {consulta}")
+        self.__cursor.execute(consulta)
+        
+        
+        self.__database.commit()
+        resultado = self.__cursor.rowcount
+        print(f"Resultado: {resultado}")
         #return resultado.fetchone()
         
-        return self.__cursor.rowcont 
-
+        return resultado
 
     
 
